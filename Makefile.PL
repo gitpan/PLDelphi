@@ -31,7 +31,7 @@ if ( $ARGV[0] =~ /renametree/i ) {
 ########
 
 my $NAME = 'PLDelphi' ;
-my $VERSION = '0.01' ;
+my $VERSION = '0.02' ;
 
 #######
 # EXT #
@@ -158,6 +158,8 @@ $LIBNAME$dll: \$(OBJECTS)
 test:
 	perl -e "print qq`\\n\\n** Take a look in the ConsoleTest project in Delphi (ConsoleTest.dpr)!\\n\\n`"
 
+install:
+	perl -e "print qq`\\n\\n** PLDelphi is not a module to be installed into Perl,\\n   but into your Delphi applications!\\n\\n`"
 
 dist : \$(DISTVNAME).tar\$(SUFFIX)
 

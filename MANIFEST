@@ -1,13 +1,12 @@
+Changes
 ConsoleTest.cfg
 ConsoleTest.dof
 ConsoleTest.dpr
-ConsoleTest.exe
 MANIFEST
 MANIFEST-BUILT
 Makefile.PL
 PLDelphi.c
 PLDelphi.pm
-PLDelphi_dll.dcu
 PLDelphi_dll.pas
 README
 basiclib/AutoLoader.pm-txt

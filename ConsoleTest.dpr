@@ -17,9 +17,12 @@ begin
 
   browser := Perl.NEW('WWW::Mechanize');
 
-  response := browser.call_sv('get',' "http://www.terra.com.br/" ') ;
+  response := browser.call_sv('get',' "http://www.perl.com/" ') ;
 
   writeln( response.call('content') ) ;
+
+  FreeAndNil(response) ;
+  FreeAndNil(browser) ;
 
   writeln('***********') ;
 

@@ -12,19 +12,21 @@
 
 package PLDelphi ;
 
+use vars qw($SVCODE $CALLRET) ;
 
 ############
 
-sub SV_eval { SV( eval("package main ; $_[0]") ) ;}
+sub SV_eval { $CALLRET = SV( eval("package main ; $SVCODE") ) ;}
+sub STR_eval { $CALLRET = eval("package main ; $SVCODE") . '' ;}
 
 ############
       
 use 5.006 ;
 
-#use strict qw(vars);
-#use vars qw($VERSION @ISA) ;
+use strict qw(vars);
+use vars qw($VERSION @ISA) ;
 
-$VERSION = '0.01' ;
+$VERSION = '0.02' ;
 
 ########
 # BOOT # The boot will be made by PLDelphi.c
@@ -54,9 +56,7 @@ BEGIN {
 # VARS #
 ########
 
-  #use vars qw($SVCODE) ;
-
-  my $SV_CLEAN_X = 100 ;
+  my $SV_CLEAN_X = 3 ;
 
   my (%SVTBL , $SVCNT , $SVCLS) ;
 
@@ -79,14 +79,17 @@ sub SV {
   if ( ++$SVCLS >= $SV_CLEAN_X ) {
     $SVCLS = 0 ;
     foreach my $Key ( keys %SVTBL ) {
+      #print "sv[$Key]> $SVTBL{$Key}\n" ;
       delete $SVTBL{$Key} if !defined $SVTBL{$Key} ;
     }
+    #dump_SVTBL() ;
   }
 
   if (ref $_[0]) {
     ++$SVCNT ;
     $SVTBL{$SVCNT} = $_[0] ;
-    weaken( $SVTBL{$SVCNT} ) ;
+    ##weaken( $SVTBL{$SVCNT} ) ;    
+    #print "SV> $SVCNT\n" ;
     return $SVCNT ;
   }
   else {
@@ -248,6 +251,9 @@ PLDelphi - This project will embed Perl into Delphi.
     response := browser.call_sv('get',' "http://www.perl.com/" ') ;
   
     writeln( response.call('content') ) ;
+    
+    FreeAndNil(response) ;
+    FreeAndNil(browser) ;
   
   end.
 
